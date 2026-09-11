@@ -25,11 +25,11 @@ def clean_and_transform_data(input_path: str, output_path: str):
     # Filter out invalid or negative transaction amounts
     df = df[df["amount"] > 0]
 
-    # Clean string fields
-    df["device_id"] = df["device_id"].str.strip().str.upper()
-    df["location"] = df["location"].str.strip().title()
-    df["merchant"] = df["merchant"].str.strip()
-
+    # 2. Clean string fields
+    df["device_id"] = df["device_id"].astype(str).str.strip().str.upper()
+    df["location"] = df["location"].astype(str).str.strip().str.title()
+    df["merchant"] = df["merchant"].astype(str).str.strip()
+    
     # 3. Feature Engineering for Investigation
     # Extract hour and day of week to assist downstream forensic queries
     df["tx_hour"] = df["timestamp"].dt.hour
